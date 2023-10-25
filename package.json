@@ -1,0 +1,16 @@
+{
+  "name": "desbravando-backend-testes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^29.5.6",
+    "jest": "^29.7.0",
+    "typescript": "^5.2.2"
+  }
+}
