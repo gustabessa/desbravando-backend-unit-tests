@@ -2,25 +2,18 @@ import { formatDate } from "./format-date";
 
 describe("format date function", () => {
     it("should return date in Brazilian format", () => {
-        const today = new Date(); 
-        const day = today.getUTCDate();
-        const month = today.getUTCMonth() + 1;
-        const year = today.getUTCFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
+        const date = new Date(2005, 6, 7); // July 7, 2005
 
-        const result = formatDate(today);
+        const result = formatDate(date);
 
-        expect(result).toBe(formattedDate);
+        expect(result).toBe("7/7/2005");
     })
 
     it("should not return date in brasilian format with leading zero", () => {
-        const today = new Date(2023, 0, 1); // January 1, 2023
-        const day = today.getUTCDate();
-        const month = today.getUTCMonth() + 1;
-        const year = today.getUTCFullYear();
-        const formattedDate = `0${day}/0${month}/${year}`;
+        const date = new Date(2023, 0, 1); // January 1, 2023
+        const formattedDate = `01/01/2023`;
 
-        const result = formatDate(today);
+        const result = formatDate(date);
 
         expect(result).not.toBe(formattedDate);
     })
