@@ -1,7 +1,7 @@
 import { formatDate } from "./format-date";
 
 describe("format date function", () => {
-    it("should return date in brasilian format", () => {
+    it("should return date in Brazilian format", () => {
         const today = new Date(); 
         const day = today.getUTCDate();
         const month = today.getUTCMonth() + 1;
