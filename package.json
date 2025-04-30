@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:dev": "npx jest --watch"
   },
   "author": "",
   "license": "ISC",
