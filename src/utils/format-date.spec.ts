@@ -5,7 +5,7 @@ interface SetupType {
   day: string;
   month: string;
   year: string;
-  auxDate?: string;
+  timezone?: string;
 }
 
 const setup = ({
@@ -13,10 +13,10 @@ const setup = ({
   day,
   month,
   year,
-  auxDate,
+  timezone,
 }: SetupType) => {
   const date = returnValidDate
-    ? `${year}-${month}-${day}${auxDate ? auxDate : ""}`
+    ? `${year}-${month}-${day}${timezone ? timezone : ""}`
     : "invalid-date";
 
   const formattedDateFn = returnValidDate
@@ -58,7 +58,7 @@ describe("formatDate", () => {
         month: "10",
         year: "2023",
         day: "1",
-        auxDate: "T12:00:00Z"
+        timezone: "T12:00:00Z"
       });
     const formattedDate = formatDate(new Date(date));
     expect(formattedDate).toBe(formattedDateFn);
