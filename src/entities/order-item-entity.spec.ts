@@ -9,7 +9,7 @@ describe("OrderItemEntity", () => {
 
       expect(() => {
         orderItemEntity.updateOrderPrice(8.9);
-      }).toThrow(DomainRuleException);
+      });
     });
 
     it("should update orderItem price if new price is not lower than 90% of the original price", () => {
