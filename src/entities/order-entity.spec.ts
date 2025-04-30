@@ -6,7 +6,7 @@ describe("OrderEntity", () => {
         it("should not apply discount if some item is promotional", () => {
             const orderEntity = new Order();
             Reflect.set(orderEntity, "items", [
-                { isPromotional: false },
+                { isPromotional: true },
             ]);
 
             expect(() => {
