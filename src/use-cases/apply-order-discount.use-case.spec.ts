@@ -9,6 +9,7 @@ import {
   OrderRepositoryMock,
 } from "../shared/mocks";
 import { IOrder } from "../shared/interfaces/entities/order-entity.interface";
+import { DomainRuleException } from "../shared/errors/domain-rule-exception";
 
 describe("ApplyOrderDiscount Use Case", () => {
   const orderRepository = new OrderRepositoryMock();
@@ -21,11 +22,11 @@ describe("ApplyOrderDiscount Use Case", () => {
     emailProvider
   );
 
-  const order: IOrder = {
+  const order = {
     id: 1,
     customer: { email: "teste@teste.com" },
     applyDiscount: jest.fn(),
-  } as unknown as IOrder;
+  };
 
   const dto: IApplyOrderDiscountDto = {
     discount: 10,
@@ -38,6 +39,16 @@ describe("ApplyOrderDiscount Use Case", () => {
     await expect(useCase.execute(1, dto)).rejects.toThrowError(
       "Order not found"
     );
+  });
+
+  it("should return an error if discount can't be applied", async () => {
+    order.applyDiscount.mockImplementation(() => {
+      throw new DomainRuleException("");
+    });
+
+    orderRepository.findById.mockResolvedValue(order);
+
+    await expect(useCase.execute(1, dto)).rejects.toThrowError();
   });
 
   it("should apply discount to order", async () => {
