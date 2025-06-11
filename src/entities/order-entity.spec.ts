@@ -1,6 +1,5 @@
 import { EOrderStatus } from "../shared/enums/order-status.enum";
 import { EOrderType } from "../shared/enums/order-type.enum";
-import { IOrderItem } from "../shared/interfaces/entities/order-item-entity.interface";
 import { IProduct } from "../shared/interfaces/entities/product-entity.interface";
 import { Order } from "./order.entity";
 

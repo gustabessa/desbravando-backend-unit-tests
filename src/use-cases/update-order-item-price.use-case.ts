@@ -14,7 +14,7 @@ export class UpdateOrderItemPrice {
     const orderItem = await this.orderItemRepository.findById(orderItemId);
 
     if (!orderItem) {
-      throw new Error("Order not found");
+      throw new Error("OrderItem not found");
     }
 
     try {
@@ -24,6 +24,7 @@ export class UpdateOrderItemPrice {
       if (error instanceof DomainRuleException) {
         const { body, subject } =
           this.mailRepository.getUpdateOrderItemPriceAbove10PercentEmail();
+
         await this.emailProvider.sendEmail({
           to: orderItem.order.customer.email,
           body,

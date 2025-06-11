@@ -18,9 +18,11 @@ export class ApplyOrderDiscount {
     }
 
     order.applyDiscount(dto);
+
     await this.orderRepository.save(order);
 
     const { body, subject } = this.mailRepository.getApplyOrderDiscountEmail();
+
     await this.emailProvider.sendEmail({
       to: order.customer.email,
       body,
