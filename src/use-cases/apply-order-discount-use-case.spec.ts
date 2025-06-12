@@ -16,7 +16,7 @@ describe("ApplyOrderDiscountUseCase", () => {
     sendEmail: jest.fn(),
   };
 
-  const applyOrderDiscount = new ApplyOrderDiscount(
+  const applyOrderDiscountUseCase = new ApplyOrderDiscount(
     orderRepository,
     mailRepository,
     emailProvider
@@ -33,12 +33,16 @@ describe("ApplyOrderDiscountUseCase", () => {
     applyDiscount: jest.fn(),
   };
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should throw an error if order not found", async () => {
     orderRepository.findById.mockResolvedValue(null);
 
-    await expect(applyOrderDiscount.execute(orderId, dto)).rejects.toThrow(
-      "Order not found"
-    );
+    await expect(
+      applyOrderDiscountUseCase.execute(orderId, dto)
+    ).rejects.toThrow("Order not found");
     expect(orderRepository.save).not.toHaveBeenCalled();
     expect(emailProvider.sendEmail).not.toHaveBeenCalled();
   });
@@ -46,11 +50,11 @@ describe("ApplyOrderDiscountUseCase", () => {
   it("should apply discount, save order and send email", async () => {
     orderRepository.findById.mockResolvedValue(mockOrder);
     mailRepository.getApplyOrderDiscountEmail.mockReturnValue({
-      body: 'Discount applied successfully!',
-      subject: 'Your order has a discount',
+      body: "Discount applied successfully!",
+      subject: "Your order has a discount",
     });
 
-    await applyOrderDiscount.execute(orderId, dto);
+    await applyOrderDiscountUseCase.execute(orderId, dto);
 
     expect(orderRepository.findById).toHaveBeenCalledWith(orderId);
     expect(mockOrder.applyDiscount).toHaveBeenCalledWith(dto);
@@ -59,8 +63,8 @@ describe("ApplyOrderDiscountUseCase", () => {
 
     expect(emailProvider.sendEmail).toHaveBeenCalledWith({
       to: mockOrder.customer.email,
-      body:'Discount applied successfully!',
-      subject: 'Your order has a discount',
+      body: "Discount applied successfully!",
+      subject: "Your order has a discount",
     });
   });
 });
