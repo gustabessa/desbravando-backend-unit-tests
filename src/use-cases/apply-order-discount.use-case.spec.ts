@@ -1,14 +1,11 @@
 import { ApplyOrderDiscount } from "./apply-order-discount.use-case";
 import { IApplyOrderDiscountDto } from "../shared/interfaces/dto/apply-order-discount-dto.interface";
-import { IEmailProvider } from "../shared/interfaces/providers/email-provider.interface";
-import { IMailRepository } from "../shared/interfaces/repositories/email-repository.interface";
-import { IOrderRepository } from "../shared/interfaces/repositories/order-repository.interface";
+
 import {
   EmailProviderMock,
   MailRepositoryMock,
   OrderRepositoryMock,
 } from "../shared/mocks";
-import { IOrder } from "../shared/interfaces/entities/order-entity.interface";
 import { DomainRuleException } from "../shared/errors/domain-rule-exception";
 
 describe("ApplyOrderDiscount Use Case", () => {
@@ -42,11 +39,15 @@ describe("ApplyOrderDiscount Use Case", () => {
   });
 
   it("should return an error if discount can't be applied", async () => {
-    order.applyDiscount.mockImplementation(() => {
-      throw new DomainRuleException("");
-    });
+    const orderMock = {
+      id: 1,
+      customer: { email: "teste@teste.com" },
+      applyDiscount: jest.fn().mockImplementation(() => {
+        throw new DomainRuleException("");
+      }),
+    };
 
-    orderRepository.findById.mockResolvedValue(order);
+    orderRepository.findById.mockResolvedValue(orderMock);
 
     await expect(useCase.execute(1, dto)).rejects.toThrowError();
   });

@@ -1,8 +1,5 @@
 import { UpdateOrderItemPrice } from "./update-order-item-price.use-case";
 import { DomainRuleException } from "../shared/errors/domain-rule-exception";
-import { IEmailProvider } from "../shared/interfaces/providers/email-provider.interface";
-import { IMailRepository } from "../shared/interfaces/repositories/email-repository.interface";
-import { IOrderItemRepository } from "../shared/interfaces/repositories/order-item.repository.interface";
 import { MailRepositoryMock } from "../shared/mocks/mail-repository.mock";
 import { EmailProviderMock } from "../shared/mocks/email-provider.mock";
 import { OrderItemRepositoryMock } from "../shared/mocks";
