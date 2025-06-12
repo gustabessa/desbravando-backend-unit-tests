@@ -84,6 +84,10 @@ describe("UpdateOrderItemPrice Use case", () => {
     expect(
       mailRepository.getUpdateOrderItemPriceAbove10PercentEmail
     ).not.toHaveBeenCalled();
-    expect(emailProvider.sendEmail).not.toHaveBeenCalled();
+    expect(emailProvider.sendEmail).toHaveBeenCalledWith({
+      to: mockOrderItem.order.customer.email,
+      subject: "Desconto aplicado com sucesso",
+      body: "Seu pedido recebeu um desconto de 10%",
+    });
   });
 });
