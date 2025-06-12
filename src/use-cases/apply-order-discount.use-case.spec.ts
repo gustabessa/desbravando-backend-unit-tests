@@ -12,6 +12,9 @@ import { IOrder } from "../shared/interfaces/entities/order-entity.interface";
 import { DomainRuleException } from "../shared/errors/domain-rule-exception";
 
 describe("ApplyOrderDiscount Use Case", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   const orderRepository = new OrderRepositoryMock();
   const mailRepository = new MailRepositoryMock();
   const emailProvider = new EmailProviderMock();
